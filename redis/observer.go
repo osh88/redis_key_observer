@@ -40,7 +40,7 @@ type Observer struct {
 // pattern: ключ в редисе
 // interval: интервал проверок значения
 // notify: функция обратного вызова при изменении ключа
-func (o *Observer) Watch(db int, pattern string, interval time.Duration, notify Notify) map[string]string {
+func (o *Observer) Subscribe(db int, pattern string, interval time.Duration, notify Notify) map[string]string {
 	values := make(map[string]string)
 	for _, key := range o.client.Keys(pattern).Val() {
 		values[key] = o.client.Get(key).Val()

@@ -3,12 +3,12 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/valyala/fasthttp"
 	"log"
 	"redis_key_observer/methods"
 	"redis_key_observer/redis"
 	"redis_key_observer/server"
 	"runtime"
-	"time"
 )
 
 var (
@@ -33,17 +33,12 @@ func main() {
 	o, err := redis.NewObserver(args.redisAddr, args.redisPass)
 	check(err)
 
-	o.Watch(0, "x*", 5*time.Second, func(k, v string) {
-		fmt.Println(k, v)
-	})
-
-	time.Sleep(10 * time.Second)
-	o.Unsubscribe(0, "x*")
-
-	s, err := server.New()
+	s, err := server.New(o)
 	check(err)
 
-	s.SetHandler(`/api/v1/watch`, "Watch", methods.Watch)
+	s.SetHandler(`/api/v1/subscribe`, "Subscribe", methods.Subscribe)
+	s.SetHandler(`/api/v1/unsubscribe`, "Unsubscribe", methods.Unsubscribe)
+	s.SetHandler(`/api/v1/test_callback`, "testCallback", testCallback)
 
 	log.Fatal(s.ListenAndServe(args.httpAddr))
 }
@@ -52,4 +47,10 @@ func check(err error) {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func testCallback(ctx *fasthttp.RequestCtx, observer *redis.Observer) ([]byte, error) {
+	fmt.Println("Method:", string(ctx.Method()))
+	fmt.Println("Data:", string(ctx.Request.Body()))
+	return nil, nil
 }
