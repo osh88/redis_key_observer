@@ -4,9 +4,9 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"redis-observer/methods"
-	"redis-observer/redis"
-	"redis-observer/server"
+	"redis_key_observer/methods"
+	"redis_key_observer/redis"
+	"redis_key_observer/server"
 	"runtime"
 	"time"
 )
@@ -22,7 +22,7 @@ var (
 func init() {
 	flag.StringVar(&args.redisAddr, "redisAddr", "", "Redis address")
 	flag.StringVar(&args.redisPass, "redisPass", "", "Redis pass")
-	flag.StringVar(&args.httpAddr, "httpAddr", ":8080", "HTTP address")
+	flag.StringVar(&args.httpAddr, "httpAddr", ":8000", "HTTP address")
 	flag.Parse()
 }
 
@@ -37,8 +37,8 @@ func main() {
 		fmt.Println(k, v)
 	})
 
-	time.Sleep(10*time.Second)
-	o.Unsubscribe(0,"x*")
+	time.Sleep(10 * time.Second)
+	o.Unsubscribe(0, "x*")
 
 	s, err := server.New()
 	check(err)

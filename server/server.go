@@ -28,7 +28,7 @@ func (s *server) Handler(ctx *fasthttp.RequestCtx) {
 
 	data, err := method.Handler(ctx)
 	if err != nil {
-		data, _ = json.Marshal(struct {error string} {
+		data, _ = json.Marshal(struct{ error string }{
 			error: err.Error(),
 		})
 	}
