@@ -3,11 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/osh88/redis_key_observer/methods"
+	"github.com/osh88/redis_key_observer/redis"
+	"github.com/osh88/redis_key_observer/server"
 	"github.com/valyala/fasthttp"
 	"log"
-	"redis_key_observer/methods"
-	"redis_key_observer/redis"
-	"redis_key_observer/server"
 	"runtime"
 )
 

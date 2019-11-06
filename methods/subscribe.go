@@ -3,9 +3,9 @@ package methods
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/osh88/redis_key_observer/redis"
 	"github.com/valyala/fasthttp"
 	"log"
-	"redis_key_observer/redis"
 	"strconv"
 	"time"
 )

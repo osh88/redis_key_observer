@@ -2,8 +2,8 @@ package methods
 
 import (
 	"fmt"
+	"github.com/osh88/redis_key_observer/redis"
 	"github.com/valyala/fasthttp"
-	"redis_key_observer/redis"
 	"strconv"
 )
 

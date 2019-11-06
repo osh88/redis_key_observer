@@ -2,10 +2,10 @@ package server
 
 import (
 	"encoding/json"
+	"github.com/osh88/redis_key_observer/redis"
 	"github.com/valyala/fasthttp"
 	"log"
 	"net/http"
-	"redis_key_observer/redis"
 )
 
 type method struct {
@@ -30,7 +30,7 @@ func (s *server) Handler(ctx *fasthttp.RequestCtx) {
 
 	data, err := method.Handler(ctx, s.observer)
 	if err != nil {
-		data, _ = json.Marshal(struct{Error string `json:"error"`}{Error: err.Error()})
+		data, _ = json.Marshal(struct{ Error string `json:"error"` }{Error: err.Error()})
 	}
 
 	ctx.SetContentType(`application/json`)

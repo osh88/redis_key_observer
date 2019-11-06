@@ -1,4 +1,4 @@
-module redis_key_observer
+module github.com/osh88/redis_key_observer
 
 go 1.12
 
